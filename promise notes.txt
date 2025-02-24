@@ -1,0 +1,18 @@
+PAF Task 3 Pseudo Code (in node.js)
+====================================
+
+promise
+.then( () => {
+	return db.imdb.aggregate([ ]) 	// returns imdb.ids
+})
+
+.then( result => 
+	return SQL query "select * from imdb where imdb.id in (results)"
+)
+
+.catch(//error handling)
+
+
+// Why use promise? Bcos js does I/O statements like above asynchronously, 
+// hence if promise not used, the second promise might be done first
+// Thus, need to separate and assign each async statement into each promise
