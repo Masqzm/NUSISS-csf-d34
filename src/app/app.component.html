@@ -2,3 +2,18 @@
 <div>
   <button type="button" (click)="promiseDemo()">Start</button>
 </div>
+
+<hr>
+
+<app-form></app-form>
+
+<hr>
+
+<h1>Dog API</h1>
+<!-- <div><button type="button" (click)="fetchDogImages()">Get Dogs</button></div> -->
+<!-- <div><button type="button" (click)="fetchDogImagesAsPromise()">Get Dogs</button></div> -->
+<div><button type="button" (click)="fetchDogImagesAsStrArr()">Get Dogs</button></div>
+
+@for (img of dogImages; track $index) {
+  <div><img [src]="img" alt=""></div>
+}

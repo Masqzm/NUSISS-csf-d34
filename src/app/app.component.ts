@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { DogService } from './dog.service';
+import { DogResults } from './models';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +10,52 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  private dogSvc = inject(DogService)
+
+  protected dogImages: string[] = []
+  
+  private sub!: Subscription
+
+  fetchDogImagesAsStrArr() {
+    this.dogSvc.getDogsAsStringArr().then(result => {
+        console.info('>>> PROMISE result: ', result)
+        this.dogImages = result
+      }
+    )
+    // .catch(err => { 
+    //   console.info('>>> error: ', err) 
+    //   alert(`ERROR: ${JSON.stringify(err)}`)
+    // })
+  }
+
+  fetchDogImagesAsPromise() {
+    this.dogSvc.getDogsAsPromise().then(result => {
+        console.info('>>> PROMISE result: ', result)
+        this.dogImages = result.message
+      }
+    )
+    .catch(err => { 
+      console.info('>>> error: ', err) 
+      alert(`ERROR: ${JSON.stringify(err)}`)
+    })
+  }
+
+  fetchDogImages() {
+    this.sub = this.dogSvc.getDogs().subscribe({
+      next: (result) => {
+        console.info('>>> result: ', result)
+        this.dogImages = result.message
+      },
+      error: (err) => {
+        console.info('>>> error: ', err)
+      },
+      complete: () => {
+        console.info('>>> completed')
+        this.sub.unsubscribe()
+      }
+    })
+  }
+
   promiseDemo() {
     const taskSuccess = true
 
