@@ -38,8 +38,8 @@ export class FormComponent implements OnInit, OnDestroy {
       (images) => this.images = images
     )
 
-    // this.counterSubj.subscribe(
-    //   (data) = { console.info('>>> received: ', data) }
+    // this.statusSub = this.counterSubj.subscribe(
+    //   (data) => { console.info('>>> received: ', data) }
     // )
 
     // this.valueSub = this.form.valueChanges.subscribe({
